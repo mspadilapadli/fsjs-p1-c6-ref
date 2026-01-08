@@ -11,6 +11,18 @@ class Controller {
     }
     static async readEmployees(req, res) {
         try {
+            const { byPosition } = req.query;
+            const where = {};
+            if (byPosition) {
+                where.position = byPosition;
+            }
+            const option = {
+                where,
+                order: [["firstName", "asc"]],
+            };
+            // console.log(option);
+            // res.send(option);
+            // const data = await Employee.getEmployeeByPosition(option);
             const data = await Employee.findAll();
             res.render("employees", { data });
         } catch (error) {
