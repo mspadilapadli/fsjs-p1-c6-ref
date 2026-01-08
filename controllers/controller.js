@@ -1,0 +1,67 @@
+const { Store, Employee } = require("../models");
+
+class Controller {
+    static async readStores(req, res) {
+        try {
+            const data = await Store.findAll();
+            res.render("stores", { data });
+        } catch (error) {
+            res.send(error);
+        }
+    }
+    static async readEmployees(req, res) {
+        try {
+            const data = await Employee.findAll();
+            res.render("employees", { data });
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async getFormStore(req, res) {
+        try {
+            res.render("form-add-stores");
+        } catch (error) {
+            res.send(error);
+        }
+    }
+    static async postAddStore(req, res) {
+        try {
+        } catch (error) {
+            res.send(error);
+        }
+    }
+    static async storeDetail(req, res) {
+        try {
+        } catch (error) {
+            res.send(error);
+        }
+    }
+    static async getFormEmployee(req, res) {
+        try {
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async postAddEmployee(req, res) {
+        try {
+        } catch (error) {
+            res.send(error);
+        }
+    }
+    static async postEditEmployee(req, res) {
+        try {
+        } catch (error) {
+            res.send(error);
+        }
+    }
+    static async employeeDelete(req, res) {
+        try {
+        } catch (error) {
+            res.send(error);
+        }
+    }
+}
+
+module.exports = Controller;
