@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Shirts</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+   <%-include("_navbar")%>
+
+      <div class="container">
+
+         <div class="my-3">
+            <a href="/employees/add" class="btn btn-info">Add Employee</a>
+         </div>
+         <div class="d-flex justify-content-center mb-3" style="gap: 10px;">
+            <a class="btn btn-outline-secondary" href="/employees">All</a>
+            <a class="btn btn-outline-secondary" href="/employees?by=Staff">Staff</a>
+            <a class=" btn btn-outline-secondary" href="/employees?by=Supervisor">Supervisor</a>
+            <a class="btn btn-outline-secondary" href="/employees?by=Manager">Manager</a>
+            <a class="btn btn-outline-secondary" href="/employees?by=CEO">CEO</a>
+
+         </div>
+         <nav class="navbar navbar-light bg-light">
+            <form action="/" method="get" class="form-inline d-flex">
+               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+               <button class=" btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            </form>
+         </nav>
+
+
+         <table class="table  table-striped">
+            <thead>
+               <tr class="table-info">
+                  <th scope="col">Name</th>
+                  <th scope="col">Position</th>
+                  <th scope="col">Salary</th>
+                  <th scope="col">Store's Code</th>
+                  <th scope="col">Action</th>
+               </tr>
+            </thead>
+            <tbody>
+
+               <% data.forEach((employee)=> {%>
+
+                  <tr>
+                     <td>
+                        <%= employee.firstName + " " + employee.lastName %>
+                     </td>
+
+                     <td>
+                        <%= employee.position %>
+                     </td>
+
+                     <td>
+                        <%= employee.salary %>
+                     </td>
+
+                     <td>
+                        <%= employee.code %>
+                     </td>
+                     <td>
+                        <a href="stores/<%= employee.storeId %>" class="btn btn-outline-info">Delete</a>
+
+                     </td>
+                  </tr>
+                  <% }); %>
+            </tbody>
+         </table>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+         crossorigin="anonymous"></script>
+</body>
+
+</html>
