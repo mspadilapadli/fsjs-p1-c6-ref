@@ -1,0 +1,56 @@
+[
+    {
+        "firstName": "Anton",
+        "lastName": "Cibs",
+        "dateOfBirth": "11/09/1998",
+        "education": "SMA",
+        "position": "Staff",
+        "StoreId": "1",
+        "salary": "5000000"
+    },
+    {
+        "firstName": "Sheila",
+        "lastName": "Dara",
+        "dateOfBirth": "11/09/2000",
+        "education": "S2",
+        "position": "Manager",
+        "StoreId": "1",
+        "salary": "9800000"
+    },
+    {
+        "firstName": "Udin",
+        "lastName": "Sedunia",
+        "dateOfBirth": "21/10/1995",
+        "education": "S1",
+        "position": "Supervisior",
+        "StoreId": "1",
+        "salary": "800000"
+    },
+    {
+        "firstName": "Miqu",
+        "lastName": "Dad",
+        "dateOfBirth": "22/10/1997",
+        "education": "S1",
+        "position": "Supervisior",
+        "StoreId": "2",
+        "salary": "800000"
+    },
+    {
+        "firstName": "Arfi",
+        "lastName": "Nugara",
+        "dateOfBirth": "12/12/1990",
+        "education": "S3",
+        "position": "CEO",
+        "StoreId": "2",
+        "salary": "1500000"
+    },
+    {
+        "firstName": "Tri",
+        "lastName": "Purwadinata",
+        "dateOfBirth": "07/02/1993",
+        "education": "S2",
+        "position": "Manager",
+        "StoreId": "3",
+        "salary": "900000"
+    }
+]
