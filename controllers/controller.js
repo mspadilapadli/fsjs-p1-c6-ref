@@ -27,6 +27,10 @@ class Controller {
     }
     static async postAddStore(req, res) {
         try {
+            const { name, location, category } = req.body;
+            const paylod = { name, location, category, code: "nunggu Hooks" };
+            await Store.create(paylod);
+            res.redirect("/");
         } catch (error) {
             res.send(error);
         }
