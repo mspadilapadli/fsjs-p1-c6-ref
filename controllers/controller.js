@@ -160,6 +160,17 @@ class Controller {
     }
     static async employeeDelete(req, res) {
         try {
+            // console.log(req.params);
+            let { storeId, employeeId } = req.params;
+            let delData = await Employee.findByPk(employeeId);
+            await Employee.destroy({
+                where: {
+                    id: employeeId,
+                },
+            });
+            res.redirect(
+                `/stores/${storeId}?delData=${delData.firstName} ${delData.lastName}`
+            );
         } catch (error) {
             res.send(error);
         }
