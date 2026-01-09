@@ -125,11 +125,36 @@ class Controller {
     static async postEditEmployee(req, res) {
         try {
             // console.log(req.params, "<<<addempl");
+            console.log(req.body);
             let { storeId, employeeId } = req.params;
-            let updateData = await Employee.findByPk(employeeId);
-            console.log(updateData);
-            res.render("edit-employee", { storeId, updateData, employeeId });
+            let {
+                firstName,
+                lastName,
+                education,
+                dateOfBirth,
+                position,
+                salary,
+            } = req.body;
+            // res.render("form-add-employee");
+            let updateData = {
+                firstName,
+                lastName,
+                dateOfBirth,
+                education,
+                position,
+                StoreId: storeId,
+                salary,
+            };
+            await Employee.update(updateData, {
+                where: {
+                    id: employeeId,
+                },
+            });
+            res.redirect(`/stores/${storeId}`);
+            // let updateData = await Employee.findByPk(employeeId);
+            // res.render("edit-employee", { storeId, updateData, employeeId });
         } catch (error) {
+            console.log(error);
             res.send(error);
         }
     }
