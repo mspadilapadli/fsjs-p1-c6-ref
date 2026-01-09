@@ -49,7 +49,23 @@ class Controller {
     }
     static async storeDetail(req, res) {
         try {
+            let { id } = req.params;
+            let { delData } = req.query;
+            // console.log(delData);
+
+            let data = await Store.findByPk(id, {
+                include: {
+                    model: Employee,
+                },
+                order: [[Employee, "firstName", "ASC"]],
+            });
+            // let employeeFee = data.Employees.
+            let totalFee = await Store.employeeFee(data);
+            // console.log(totalFee, "cont");
+            // res.send(data);
+            res.render("detail-store", { data, id, delData, totalFee });
         } catch (error) {
+            // console.log(error);
             res.send(error);
         }
     }
