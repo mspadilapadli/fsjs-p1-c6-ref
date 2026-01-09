@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             Employee.belongsTo(models.Store, { foreignKey: "StoreId" });
         }
+
+        static async getEmployeeByPosition() {
+            try {
+            } catch (error) {
+                throw error;
+            }
+        }
     }
     Employee.init(
         {
