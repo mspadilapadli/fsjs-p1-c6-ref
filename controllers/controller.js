@@ -82,8 +82,44 @@ class Controller {
 
     static async postAddEmployee(req, res) {
         try {
+            // console.log(req.params);
+            // console.log(req.body);
+            let { storeId } = req.params;
+            // console.log(storeId, "<<<post");
+            let {
+                firstName,
+                lastName,
+                education,
+                dateOfBirth,
+                position,
+                salary,
+            } = req.body;
+            // res.render("form-add-employee");
+            let addData = {
+                firstName,
+                lastName,
+                dateOfBirth,
+                education,
+                position,
+                StoreId: storeId,
+                salary,
+            };
+            // console.log(addData);
+            await Employee.create(addData);
+            res.redirect(`/stores/${storeId}`);
         } catch (error) {
-            res.send(error);
+            let { storeId } = req.params;
+            if (error.name === "SequelizeValidationError") {
+                let errors = error.errors.map((el) => {
+                    return el.message;
+                });
+                // res.send(errors);
+                res.redirect(
+                    `/stores/${storeId}/employees/add?error=${errors}`
+                );
+            } else {
+                res.send(error);
+            }
         }
     }
     static async postEditEmployee(req, res) {
