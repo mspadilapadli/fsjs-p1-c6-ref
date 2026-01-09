@@ -124,6 +124,11 @@ class Controller {
     }
     static async postEditEmployee(req, res) {
         try {
+            // console.log(req.params, "<<<addempl");
+            let { storeId, employeeId } = req.params;
+            let updateData = await Employee.findByPk(employeeId);
+            console.log(updateData);
+            res.render("edit-employee", { storeId, updateData, employeeId });
         } catch (error) {
             res.send(error);
         }
