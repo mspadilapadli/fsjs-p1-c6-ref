@@ -55,6 +55,10 @@ class Controller {
     }
     static async getFormEmployee(req, res) {
         try {
+            // console.log(req.params, "<<<addempl");
+            let { storeId } = req.params;
+            let { error } = req.query;
+            res.render("form-add-employee", { storeId, error });
         } catch (error) {
             res.send(error);
         }
