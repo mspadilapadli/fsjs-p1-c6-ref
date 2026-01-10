@@ -53,13 +53,10 @@ class Controller {
                 },
                 order: [[Employee, "firstName", "ASC"]],
             });
-            // let employeeFee = data.Employees.
+
             let totalFee = await Store.employeeFee(data);
-            // console.log(totalFee, "cont");
-            // res.send(data);
             res.render("detail-store", { data, id, delData, totalFee });
         } catch (error) {
-            // console.log(error);
             res.send(error);
         }
     }
