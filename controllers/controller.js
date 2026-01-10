@@ -83,7 +83,7 @@ class Controller {
                 position,
                 salary,
             } = req.body;
-            // res.render("form-add-employee");
+
             let addData = {
                 firstName,
                 lastName,
@@ -93,7 +93,7 @@ class Controller {
                 StoreId: storeId,
                 salary,
             };
-            // console.log(addData);
+
             await Employee.create(addData);
             res.redirect(`/stores/${storeId}`);
         } catch (error) {
