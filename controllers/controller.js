@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { Store, Employee } = require("../models");
 
 class Controller {
@@ -12,21 +13,13 @@ class Controller {
     static async readEmployees(req, res) {
         try {
             const { byPosition } = req.query;
-            const where = {};
-            if (byPosition) {
-                where.position = byPosition;
-            }
-            const option = {
-                where,
-                order: [["firstName", "asc"]],
-            };
-            // console.log(option);
-            // res.send(option);
-            // const data = await Employee.getEmployeeByPosition(option);
-            const data = await Employee.findAll();
+
+            const data = await Employee.getEmployeeByPosition(byPosition);
+
             res.render("employees", { data });
         } catch (error) {
-            res.send(error);
+            console.log(error);
+            // res.send(error);
         }
     }
 
