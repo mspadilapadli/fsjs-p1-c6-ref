@@ -13,13 +13,14 @@ class Controller {
     static async readEmployees(req, res) {
         try {
             const { byPosition } = req.query;
-
-            const data = await Employee.getEmployeeByPosition(byPosition);
-
+            const where = {};
+            if (byPosition) {
+                where.position = byPosition;
+            }
+            const data = await Employee.getEmployeeByPosition(where);
             res.render("employees", { data });
         } catch (error) {
-            console.log(error);
-            // res.send(error);
+            res.send(error);
         }
     }
 
