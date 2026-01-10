@@ -12,12 +12,8 @@ module.exports = (sequelize, DataTypes) => {
             Employee.belongsTo(models.Store, { foreignKey: "StoreId" });
         }
 
-        static async getEmployeeByPosition(byPosition) {
+        static async getEmployeeByPosition(where) {
             try {
-                const where = {};
-                if (byPosition) {
-                    where.position = byPosition;
-                }
                 const option = {
                     where,
                     order: [["firstName", "asc"]],
