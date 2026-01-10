@@ -45,7 +45,6 @@ class Controller {
         try {
             let { id } = req.params;
             let { delData } = req.query;
-            // console.log(delData);
 
             let data = await Store.findByPk(id, {
                 include: {
@@ -62,7 +61,6 @@ class Controller {
     }
     static async getFormEmployee(req, res) {
         try {
-            // console.log(req.params, "<<<addempl");
             let { storeId } = req.params;
             let { error } = req.query;
             res.render("form-add-employee", { storeId, error });
@@ -115,7 +113,6 @@ class Controller {
     }
     static async postEditEmployee(req, res) {
         try {
-            // console.log(req.params, "<<<addempl");
             console.log(req.body);
             let { storeId, employeeId } = req.params;
             let {
@@ -126,7 +123,7 @@ class Controller {
                 position,
                 salary,
             } = req.body;
-            // res.render("form-add-employee");
+
             let updateData = {
                 firstName,
                 lastName,
@@ -142,8 +139,6 @@ class Controller {
                 },
             });
             res.redirect(`/stores/${storeId}`);
-            // let updateData = await Employee.findByPk(employeeId);
-            // res.render("edit-employee", { storeId, updateData, employeeId });
         } catch (error) {
             console.log(error);
             res.send(error);
