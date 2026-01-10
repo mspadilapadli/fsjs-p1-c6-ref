@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
                 throw error;
             }
         }
+        get age() {
+            // let year = new Date().getFullYear();
+            return new Date().getFullYear() - this.dateOfBirth.split("-")[0];
+        }
     }
     Employee.init(
         {
