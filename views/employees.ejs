@@ -20,7 +20,7 @@
          <div class="d-flex justify-content-center mb-3" style="gap: 10px;">
             <a class="btn btn-outline-secondary" href="/employees">All</a>
             <a class="btn btn-outline-secondary" href="/employees?byPosition=Staff">Staff</a>
-            <a class=" btn btn-outline-secondary" href="/employees?byPosition=Supervisor">Supervisor</a>
+            <a class=" btn btn-outline-secondary" href="/employees?byPosition=Supervisior">Supervisor</a>
             <a class="btn btn-outline-secondary" href="/employees?byPosition=Manager">Manager</a>
             <a class="btn btn-outline-secondary" href="/employees?byPosition=CEO">CEO</a>
 
@@ -33,7 +33,7 @@
          </nav>
 
 
-         <table class="table  table-striped">
+         <table class="table  table-striped" style="table-layout: fixed; width: 100%;">
             <thead>
                <tr class="table-info">
                   <th scope="col">Name</th>
@@ -61,7 +61,7 @@
                      </td>
 
                      <td>
-                        <%= employee.code %>
+                        <%= employee.Store.code %>
                      </td>
                      <td>
                         <a href="stores/<%= employee.storeId %>" class="btn btn-outline-info">Delete</a>
