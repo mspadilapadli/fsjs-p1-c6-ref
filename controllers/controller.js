@@ -71,10 +71,8 @@ class Controller {
 
     static async postAddEmployee(req, res) {
         try {
-            // console.log(req.params);
-            // console.log(req.body);
             let { storeId } = req.params;
-            // console.log(storeId, "<<<post");
+
             let {
                 firstName,
                 lastName,
