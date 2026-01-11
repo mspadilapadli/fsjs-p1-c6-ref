@@ -46,6 +46,7 @@ class Controller {
             const { storeId } = req.params;
             const data = await Store.findByPk(storeId, {
                 include: Employee,
+                order: [[Employee, "firstName", "ASC"]],
             });
             const employees = data.Employees || [];
             const totalFee = Store.employeeFee(data);
@@ -62,20 +63,29 @@ class Controller {
     static async getFormEmployee(req, res) {
         try {
             // res.send("masuk add employee");
-            const { storeId } = req.params;
-            const { empolyeeId } = req.params;
-            let data = {};
+            let { storeId, employeeId } = req.params;
+            let dataEmployee = {};
             let action = `/stores/${storeId}/employees/add`;
             let isEdit = false;
 
-            if (empolyeeId) {
-                // dataEmployee ??
-                action = `/stores/${storeId}/employees/${empolyeeId}/edit`;
+            if (employeeId) {
+                dataEmployee = await Employee.findOne({
+                    where: { id: storeId, StoreId: employeeId },
+                });
+                action = `/stores/${storeId}/employees/${employeeId}/edit`;
                 isEdit = true;
             }
 
+            //* experiment, get employee by store
+            // const store = await Store.findByPk(storeId, {
+            //     include: {
+            //         model: Employee,
+            //     },
+            // });
+            // dataEmployee = store.Employees.find(({ id }) => id == employeeId);
+
             res.render("form-employee", {
-                data,
+                dataEmployee,
                 action,
                 isEdit,
             });
