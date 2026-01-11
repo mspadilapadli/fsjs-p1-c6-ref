@@ -29,8 +29,24 @@ module.exports = (sequelize, DataTypes) => {
             }
         }
         get age() {
-            // let year = new Date().getFullYear();
-            return new Date().getFullYear() - this.dateOfBirth.split("-")[0];
+            if (!this.dateOfBirth) return null;
+
+            const today = new Date();
+            const birth = new Date(this.dateOfBirth);
+
+            const birthdayThisYear =
+                today >=
+                new Date(
+                    today.getFullYear(),
+                    birth.getMonth(),
+                    birth.getDate()
+                );
+
+            const age =
+                today.getFullYear() -
+                birth.getFullYear() -
+                (birthdayThisYear ? 0 : 1);
+            return age;
         }
     }
     Employee.init(
@@ -69,22 +85,32 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: {
                         msg: `Date of birth cannot be empty`,
                     },
-                    mininalAge(value) {
-                        const today = new Date();
-                        const birth = new Date(value);
-                        const minAge = 17;
-
-                        const minimalDate = new Date(
-                            today.getFullYear() - minAge,
-                            today.getMonth(),
-                            today.getDate()
-                        );
-                        if (birth > minimalDate) {
+                    //*validate minWorkingAge with getter age
+                    minWorkingAge() {
+                        if (this.age < 17) {
                             throw new Errorr(
                                 `Minimal harus berusia 17 tahun untuk dapat bekerja`
                             );
                         }
                     },
+
+                    //*validate minWorkingAge without getter age
+                    // minWorkingAge(value) {
+                    //     const today = new Date();
+                    //     const birth = new Date(value);
+                    //     const minAge = 17;
+
+                    //     const minimalDate = new Date(
+                    //         today.getFullYear() - minAge,
+                    //         today.getMonth(),
+                    //         today.getDate()
+                    //     );
+                    //     if (birth > minimalDate) {
+                    //         throw new Errorr(
+                    //             `Minimal harus berusia 17 tahun untuk dapat bekerja`
+                    //         );
+                    //     }
+                    // },
                 },
             },
             education: {
