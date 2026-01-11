@@ -48,6 +48,10 @@ module.exports = (sequelize, DataTypes) => {
                 (birthdayThisYear ? 0 : 1);
             return age;
         }
+
+        get formateDateyyymmdd() {
+            return new Date(this.dateOfBirth).toISOString().split("T")[0];
+        }
     }
     Employee.init(
         {
@@ -155,6 +159,7 @@ module.exports = (sequelize, DataTypes) => {
                     model: "Stores",
                     key: "id",
                 },
+                allowNull: false,
                 validate: {
                     notNull: {
                         msg: `Store ID is required`,

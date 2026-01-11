@@ -14,18 +14,20 @@
         <div class="container">
 
 
-            <h5>Add Employee </h5>
+            <h5>
+                <%= isEdit ? "Update" : "Add" %> Employee
+            </h5>
 
 
             <form action="<%= action %>" method="post">
                 <div class="row">
                     <div class="col mb-3">
                         <label class="form-label"> First Name</label>
-                        <input type="text" class="form-control" name="firstName">
+                        <input type="text" class="form-control" name="firstName" value="<%= dataEmployee.firstName %>">
                     </div>
                     <div class="col mb-3">
                         <label class="form-label"> Last Name</label>
-                        <input type="text" class="form-control" name="lastName">
+                        <input type="text" class="form-control" name="lastName" value="<%= dataEmployee.lastName %>">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -33,7 +35,7 @@
                     <select class="form-select" name="education">
                         <!-- <option value="--Select--">--Select--</option> -->
                         <% ['SMA','S1','S2','S3'].forEach((item)=>{ %>
-                            <option value="<%= item %>">
+                            <option value="<%= item %>" <%=dataEmployee.education===item ? "selected" : "" %>>
                                 <%=item %>
                             </option>
 
@@ -42,7 +44,8 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control" name="dateOfBirth" />
+                    <input type="date" class="form-control" name="dateOfBirth"
+                        value="<%= dataEmployee.formateDateyyymmdd %>">
                 </div>
 
                 <div style="margin: 10px 10px;" class="mb-3">
@@ -55,7 +58,7 @@
                             <label class="form-check-label" for="position">
                             </label>
                             <input class="form-check-input" type="radio" name="position" id="position"
-                                value="<%= item %>">
+                                value="<%= item %>" <%=dataEmployee.position===item ? "checked" : "" %> >
                             <%= item %>
                         </div>
                         <% }) %>
@@ -63,10 +66,12 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label"> Salary</label>
-                    <input type="number" class="form-control" name="salary">
+                    <input type="number" class="form-control" name="salary" value="<%= dataEmployee.salary %>">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-info">
+                    <%= isEdit ? "Update" : "Add" %>
+                </button>
             </form>
         </div>
 

@@ -70,11 +70,12 @@ class Controller {
 
             if (employeeId) {
                 dataEmployee = await Employee.findOne({
-                    where: { id: storeId, StoreId: employeeId },
+                    where: { id: employeeId, StoreId: storeId },
                 });
                 action = `/stores/${storeId}/employees/${employeeId}/edit`;
                 isEdit = true;
             }
+            // res.send(dataEmployee);
 
             //* experiment, get employee by store
             // const store = await Store.findByPk(storeId, {
@@ -123,6 +124,33 @@ class Controller {
     }
     static async postEditEmployee(req, res) {
         try {
+            let { storeId, employeeId } = req.params;
+            const {
+                firstName,
+                lastName,
+                dateOfBirth,
+                education,
+                position,
+                salary,
+            } = req.body;
+
+            const payload = {
+                firstName,
+                lastName,
+                dateOfBirth,
+                education,
+                position,
+                StoreId: storeId,
+                salary,
+            };
+            // bulkUpdate whit where
+            await Employee.update(payload, {
+                where: {
+                    id: employeeId,
+                },
+                validate: true,
+            });
+            res.redirect(`/stores/${storeId}`);
         } catch (error) {
             console.log(error);
             res.send(error);
