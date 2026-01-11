@@ -1,5 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
+const helper = require("../helper");
+
 module.exports = (sequelize, DataTypes) => {
     class Store extends Model {
         /**
@@ -11,17 +13,13 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             Store.hasMany(models.Employee, { foreignKey: "StoreId" });
         }
-        static async employeeFee(data) {
-            try {
-                // console.log(data.Employees.salary, "model");
-                let totalFee = 0;
-                data.Employees.map((item) => (totalFee += item.salary));
+        static employeeFee(data) {
+            const totalFee = data.Employees.reduce(
+                (total, employee) => total + employee.salary,
+                0
+            );
 
-                // console.log(totalFee);
-                return helper.formatCurrency(totalFee);
-            } catch (error) {
-                throw error;
-            }
+            return helper.formatCurrency(totalFee);
         }
     }
     Store.init(

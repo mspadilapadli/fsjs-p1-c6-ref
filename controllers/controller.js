@@ -48,8 +48,10 @@ class Controller {
                 include: Employee,
             });
             const employees = data.Employees || [];
+            const totalFee = Store.employeeFee(data);
             res.render("detail-store", {
                 data,
+                totalFee,
                 hasEmployees: employees.length > 0,
             });
         } catch (error) {
