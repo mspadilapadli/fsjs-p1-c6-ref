@@ -152,13 +152,17 @@ class Controller {
             });
             res.redirect(`/stores/${storeId}`);
         } catch (error) {
-            console.log(error);
             res.send(error);
         }
     }
     static async employeeDelete(req, res) {
         try {
-            // console.log(req.params);
+            let { storeId, employeeId } = req.params;
+            const delEmployee = await Employee.findByPk(employeeId);
+            if (!delEmployee) throw new Error("Employee not found");
+
+            await delEmployee.destroy();
+            res.redirect(`/stores/${storeId}`);
         } catch (error) {
             res.send(error);
         }
