@@ -1,28 +1,36 @@
 const router = require("express").Router();
 const Controller = require("../controllers/controller");
 
+//read
 router.get("/", Controller.readStores);
 router.get("/stores", Controller.readStores);
 router.get("/employees", Controller.readEmployees);
+
+//add store
 router.get("/stores/add", Controller.getFormStore);
 router.post("/stores/add", Controller.postAddStore);
 
-router.get("/stores/:storedId/employees/add", Controller.getFormEmployee);
-router.post("/stores/:storedId/employees/add", Controller.postAddEmployee);
+//add employee
+router.get("/stores/:storeId/employees/add", Controller.getFormEmployee);
+router.post("/stores/:storeId/employees/add", Controller.postAddEmployee);
 
+//edit employee
 router.get(
-    "/stores/:id/employees/:employeeId/edit",
+    "/stores/:storeId/employees/:employeeId/edit",
     Controller.getFormEmployee
 );
 router.post(
-    "/stores/:id/employees/:employeeId/edit",
+    "/stores/:storeId/employees/:employeeId/edit",
     Controller.postEditEmployee
 );
+
+//delete employee
 router.get(
-    "/stores/:id/employees/:employeeId/delete",
+    "/stores/:storeId/employees/:employeeId/delete",
     Controller.employeeDelete
 );
 
-router.get("/stores/:storedId", Controller.storeDetail);
+//read detail store
+router.get("/stores/:storeId", Controller.storeDetail);
 
 module.exports = router;
