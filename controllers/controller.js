@@ -61,6 +61,24 @@ class Controller {
     }
     static async getFormEmployee(req, res) {
         try {
+            // res.send("masuk add employee");
+            const { storeId } = req.params;
+            const { empolyeeId } = req.params;
+            let data = {};
+            let action = `/stores/${storeId}/employees/add`;
+            let isEdit = false;
+
+            if (empolyeeId) {
+                // dataEmployee ??
+                action = `/stores/${storeId}/employees/${empolyeeId}/edit`;
+                isEdit = true;
+            }
+
+            res.render("form-employee", {
+                data,
+                action,
+                isEdit,
+            });
         } catch (error) {
             res.send(error);
         }
