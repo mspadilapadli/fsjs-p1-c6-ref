@@ -43,8 +43,18 @@ class Controller {
     }
     static async storeDetail(req, res) {
         try {
+            const { storeId } = req.params;
+            const data = await Store.findByPk(storeId, {
+                include: Employee,
+            });
+            const employees = data.Employees || [];
+            res.render("detail-store", {
+                data,
+                hasEmployees: employees.length > 0,
+            });
         } catch (error) {
-            res.send(error);
+            console.log(error);
+            // res.send(error);
         }
     }
     static async getFormEmployee(req, res) {
