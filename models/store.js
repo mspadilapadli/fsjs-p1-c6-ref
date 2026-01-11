@@ -63,5 +63,14 @@ module.exports = (sequelize, DataTypes) => {
         store.code = `${code}-${Date.now()}`; // better menggunana Date.now()
     });
 
+    //* create hooks method 3 via the direct method
+    // Store.beforeCreate(async (store, opt) => {
+    //     const { category } = store;
+    //     const code =
+    //         category == "Mart" ? "001" : category == "Midi" ? "002" : "003";
+    //     const date = new Date(store.createdAt).getTime();
+    //     store.code = `${code}-${Date.now()}`;
+    // });
+
     return Store;
 };

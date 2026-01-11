@@ -34,7 +34,7 @@ class Controller {
     static async postAddStore(req, res) {
         try {
             const { name, location, category } = req.body;
-            const paylod = { name, location, category, code: "nunggu Hooks" };
+            const paylod = { name, location, category };
             await Store.create(paylod);
             res.redirect("/");
         } catch (error) {
@@ -43,27 +43,12 @@ class Controller {
     }
     static async storeDetail(req, res) {
         try {
-            let { id } = req.params;
-            let { delData } = req.query;
-
-            let data = await Store.findByPk(id, {
-                include: {
-                    model: Employee,
-                },
-                order: [[Employee, "firstName", "ASC"]],
-            });
-
-            let totalFee = await Store.employeeFee(data);
-            res.render("detail-store", { data, id, delData, totalFee });
         } catch (error) {
             res.send(error);
         }
     }
     static async getFormEmployee(req, res) {
         try {
-            let { storeId } = req.params;
-            let { error } = req.query;
-            res.render("form-add-employee", { storeId, error });
         } catch (error) {
             res.send(error);
         }
@@ -71,72 +56,12 @@ class Controller {
 
     static async postAddEmployee(req, res) {
         try {
-            let { storeId } = req.params;
-
-            let {
-                firstName,
-                lastName,
-                education,
-                dateOfBirth,
-                position,
-                salary,
-            } = req.body;
-
-            let addData = {
-                firstName,
-                lastName,
-                dateOfBirth,
-                education,
-                position,
-                StoreId: storeId,
-                salary,
-            };
-
-            await Employee.create(addData);
-            res.redirect(`/stores/${storeId}`);
         } catch (error) {
-            let { storeId } = req.params;
-            if (error.name === "SequelizeValidationError") {
-                let errors = error.errors.map((el) => {
-                    return el.message;
-                });
-                // res.send(errors);
-                res.redirect(
-                    `/stores/${storeId}/employees/add?error=${errors}`
-                );
-            } else {
-                res.send(error);
-            }
+            res.send(error);
         }
     }
     static async postEditEmployee(req, res) {
         try {
-            console.log(req.body);
-            let { storeId, employeeId } = req.params;
-            let {
-                firstName,
-                lastName,
-                education,
-                dateOfBirth,
-                position,
-                salary,
-            } = req.body;
-
-            let updateData = {
-                firstName,
-                lastName,
-                dateOfBirth,
-                education,
-                position,
-                StoreId: storeId,
-                salary,
-            };
-            await Employee.update(updateData, {
-                where: {
-                    id: employeeId,
-                },
-            });
-            res.redirect(`/stores/${storeId}`);
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -145,16 +70,6 @@ class Controller {
     static async employeeDelete(req, res) {
         try {
             // console.log(req.params);
-            let { storeId, employeeId } = req.params;
-            let delData = await Employee.findByPk(employeeId);
-            await Employee.destroy({
-                where: {
-                    id: employeeId,
-                },
-            });
-            res.redirect(
-                `/stores/${storeId}?delData=${delData.firstName} ${delData.lastName}`
-            );
         } catch (error) {
             res.send(error);
         }
