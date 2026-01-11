@@ -86,6 +86,27 @@ class Controller {
 
     static async postAddEmployee(req, res) {
         try {
+            const { storeId } = req.params;
+            const {
+                firstName,
+                lastName,
+                dateOfBirth,
+                education,
+                position,
+                salary,
+            } = req.body;
+
+            const payload = {
+                firstName,
+                lastName,
+                dateOfBirth,
+                education,
+                position,
+                StoreId: storeId,
+                salary,
+            };
+            await Employee.create(payload);
+            res.redirect(`/stores/${storeId}`);
         } catch (error) {
             res.send(error);
         }
