@@ -34,30 +34,34 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: "Store",
-            hooks: {
-                beforeCreate(instance, option) {
-                    // let code1 = "";
-                    // if (instance.category === "Mart") {
-                    //     code1 = "001";
-                    // } else if (instance.category === "Midi") {
-                    //     code1 = "002";
-                    // } else if (instance.category === "Express") {
-                    //     code1 = "003";
-                    // }
-                    let time = new Date(
-                        instance.dataValues.createdAt
-                    ).getTime();
-                    let code =
-                        instance.category === "Mart"
-                            ? "001"
-                            : instance.category === "Midi"
-                            ? "002"
-                            : "003";
 
-                    instance.code = `${code} - ${time}`;
-                },
-            },
+            //* create hooks method 1 via the .init() method
+            // hooks: {
+            //     beforeCreate: (instance, option) => {
+            //         const { category } = instance;
+            //         const code =
+            //             category == "Mart"
+            //                 ? "001"
+            //                 : category == "Midi"
+            //                 ? "002"
+            //                 : "003";
+            //         const date = new Date(instance.createdAt).getTime();
+            //         instance.code = `${code}-${date}`;
+            //     },
+            // },
         }
     );
+    //* create hooks method 2 via the .addHook() method
+    Store.addHook("beforeCreate", (store, option) => {
+        const { category } = store;
+        const code =
+            category == "Mart" ? "001" : category == "Midi" ? "002" : "003";
+
+        const date = new Date(store.createdAt).getTime();
+        // createdAt di difined ketika method Store.create dipanggil, memang otomatis akan di createdAt buatkan oleh sequelize secara otomatis ketika instance store, tapi ini tetep Risky, karena banyak faktor nya, bisa jadi timpstamp:false , dll
+
+        store.code = `${code}-${Date.now()}`; // better menggunana Date.now()
+    });
+
     return Store;
 };
