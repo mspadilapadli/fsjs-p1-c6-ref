@@ -35,19 +35,93 @@ module.exports = (sequelize, DataTypes) => {
     }
     Employee.init(
         {
-            firstName: DataTypes.STRING,
-            lastName: DataTypes.STRING,
-            dateOfBirth: DataTypes.DATE,
-            education: DataTypes.STRING,
-            position: DataTypes.STRING,
+            firstName: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: `First name is required`,
+                    },
+                    notEmpty: {
+                        msg: `First name cannot be empty`,
+                    },
+                },
+            },
+            lastName: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: `Last name is required`,
+                    },
+                    notEmpty: {
+                        msg: `Last name cannot be empty`,
+                    },
+                },
+            },
+            dateOfBirth: {
+                type: DataTypes.DATE,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: `Date of birth is required`,
+                    },
+                    notEmpty: {
+                        msg: `Date of birth cannot be empty`,
+                    },
+                },
+            },
+            education: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: `Education is required`,
+                    },
+                    notEmpty: {
+                        msg: `Education cannot be empty`,
+                    },
+                },
+            },
+            position: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: `First Name is required`,
+                    },
+                    notEmpty: {
+                        msg: `First Name cannot be empty`,
+                    },
+                },
+            },
             StoreId: {
                 type: Sequelize.INTEGER,
                 references: {
                     model: "Stores",
                     key: "id",
                 },
+                validate: {
+                    notNull: {
+                        msg: `Store ID is required`,
+                    },
+                    // notEmpty: {
+                    //     msg: `Salary cannot be empty`,
+                    // },
+                },
             },
-            salary: DataTypes.INTEGER,
+            salary: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: `Salary is required`,
+                    },
+                    // notEmpty: {
+                    //     msg: `Salary cannot be empty`,
+                    // },
+                },
+            },
         },
         {
             sequelize,
