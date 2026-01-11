@@ -69,6 +69,22 @@ module.exports = (sequelize, DataTypes) => {
                     notEmpty: {
                         msg: `Date of birth cannot be empty`,
                     },
+                    mininalAge(value) {
+                        const today = new Date();
+                        const birth = new Date(value);
+                        const minAge = 17;
+
+                        const minimalDate = new Date(
+                            today.getFullYear() - minAge,
+                            today.getMonth(),
+                            today.getDate()
+                        );
+                        if (birth > minimalDate) {
+                            throw new Errorr(
+                                `Minimal harus berusia 17 tahun untuk dapat bekerja`
+                            );
+                        }
+                    },
                 },
             },
             education: {
@@ -92,6 +108,18 @@ module.exports = (sequelize, DataTypes) => {
                     },
                     notEmpty: {
                         msg: `First Name cannot be empty`,
+                    },
+                    defaultPositionForS2S3(value) {
+                        const allowPositions = ["Manager", "CEO"];
+
+                        if (
+                            ["S2", "S3"].includes(this.education) &&
+                            !allowPositions.include(value)
+                        ) {
+                            throw new Error(
+                                `Jenjang pendidikan S2 atau S3 hanya boleh menepati posisi Manager atau CEO`
+                            );
+                        }
                     },
                 },
             },
