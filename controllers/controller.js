@@ -44,6 +44,7 @@ class Controller {
     }
     static async storeDetail(req, res) {
         try {
+            const { success, display } = req.query;
             const { storeId } = req.params;
             const data = await Store.findByPk(storeId, {
                 include: Employee,
@@ -55,6 +56,8 @@ class Controller {
                 data,
                 totalFee,
                 hasEmployees: employees.length > 0,
+                success,
+                display,
             });
         } catch (error) {
             res.send(error);
@@ -118,7 +121,10 @@ class Controller {
                 salary,
             };
             await Employee.create(payload);
-            res.redirect(`/stores/${storeId}`);
+            // redirect ke detail store dengan success message
+            res.redirect(
+                `/stores/${storeId}?success=Employee added successfully&display=success`
+            );
         } catch (error) {
             const errors = helper.formatSequelizeValidationErrors(error);
             if (errors) {
@@ -160,7 +166,9 @@ class Controller {
                 },
                 validate: true,
             });
-            res.redirect(`/stores/${storeId}`);
+            res.redirect(
+                `/stores/${storeId}?success=Employee updated successfully&display=info`
+            );
         } catch (error) {
             const errors = helper.formatSequelizeValidationErrors(error);
             if (errors) {
@@ -179,9 +187,12 @@ class Controller {
             let { storeId, employeeId } = req.params;
             const delEmployee = await Employee.findByPk(employeeId);
             if (!delEmployee) throw new Error("Employee not found");
+            const employeeName = `${delEmployee.firstName} ${delEmployee.lastName}`;
 
             await delEmployee.destroy();
-            res.redirect(`/stores/${storeId}`);
+            res.redirect(
+                `/stores/${storeId}?success=Employee ${employeeName} deleted!&display=warning`
+            );
         } catch (error) {
             res.send(error);
         }

@@ -12,87 +12,88 @@
 <body>
     <%- include('_navbar') %>
         <div class="container">
-            <h5>Beta<%= data.category %> CMS</h5>
-
-            <!-- <div style="margin-bottom: 10px">
-                <a class="btn btn-primary" href="/stores">Home</a>
-                <a class="btn btn-primary" href="/stores/add">Add Store</a>
-                <a class="btn btn-primary" href="/employees">Employees</a>
-            </div> -->
-
-            <h3 class="d-flex justify-content-center">
-                <%= data.name %>
-            </h3>
-            <h3 class="d-flex justify-content-center">
-                Code : <%= data.code %>
-            </h3>
-            <div class="d-flex justify-content-center mt-4">
-                <a href="/stores/<%= data.id %>/employees/add" class="btn btn-info">Add
-                    Employee</a>
-            </div>
-            <div>
-                <div class="mb-3 mt-3">
-                    <h4 class="d-flex justify-content-center">List Employee</h4>
-                    <h6 class="d-flex justify-content-center">Employees Fee : <%= typeof totalFee !=='undefined' ?
-                            totalFee : '-' %>
-
-                    </h6>
+            <% if (success) { %>
+                <div class="alert alert-<%= display%>">
+                    <strong>
+                        <%= success %>
+                    </strong>
                 </div>
-                <div>
-                    <% if (!data.Employees.length===0) { %>
-                        <p class="d-flex justify-content-center fs-4">
-                            "Employee is Empty"
-                        </p>
+                <% } %>
+                    <h5>Beta<%= data.category %> CMS</h5>
 
-                        <% } else { %>
+                    <h3 class="d-flex justify-content-center">
+                        <%= data.name %>
+                    </h3>
+                    <h3 class="d-flex justify-content-center">
+                        Code : <%= data.code %>
+                    </h3>
+                    <div class="d-flex justify-content-center mt-4">
+                        <a href="/stores/<%= data.id %>/employees/add" class="btn btn-info">Add
+                            Employee</a>
+                    </div>
+                    <div>
+                        <div class="mb-3 mt-3">
+                            <h4 class="d-flex justify-content-center">List Employee</h4>
+                            <h6 class="d-flex justify-content-center">Employees Fee : <%= typeof totalFee !=='undefined'
+                                    ? totalFee : '-' %>
 
-                            <table class="table">
-                                <thead>
-                                    <tr class="table-info">
-                                        <th scope="col">First Name</th>
-                                        <th scope="col">Last Name</th>
-                                        <th scope="col">Age</th>
-                                        <th scope="col">Education</th>
-                                        <th scope="col">Position</th>
-                                        <th scope="col">Salary</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% data.Employees.forEach((employee)=> { %>
-                                        <tr>
-                                            <th scope="row">
-                                                <%= employee.firstName%>
-                                            </th>
-                                            <td>
-                                                <%= employee.lastName %>
-                                            </td>
-                                            <td>
-                                                <%= employee.age %>
-                                            </td>
-                                            <td>
-                                                <%= employee.education %>
-                                            </td>
-                                            <td>
-                                                <%= employee.position %>
-                                            </td>
-                                            <td>
-                                                <%= employee.salary %>
-                                            </td>
+                            </h6>
+                        </div>
+                        <div>
+                            <% if (!data.Employees.length===0) { %>
+                                <p class="d-flex justify-content-center fs-4">
+                                    "Employee is Empty"
+                                </p>
 
-                                            <td>
-                                                <a href="/stores/<%= data.id %>/employees/<%= employee.id %>/edit"
-                                                    class="btn btn-warning">Edit</a>
-                                                <a href="/stores/<%= data.id %>/employees/<%= employee.id %>/delete"
-                                                    class="btn btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
-                                        <% }) %>
-                                </tbody>
-                            </table>
-                            <%} %>
-                </div>
-            </div>
+                                <% } else { %>
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr class="table-info">
+                                                <th scope="col">First Name</th>
+                                                <th scope="col">Last Name</th>
+                                                <th scope="col">Age</th>
+                                                <th scope="col">Education</th>
+                                                <th scope="col">Position</th>
+                                                <th scope="col">Salary</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% data.Employees.forEach((employee)=> { %>
+                                                <tr>
+                                                    <td scope="row">
+                                                        <%= employee.firstName%>
+                                                    </td>
+                                                    <td>
+                                                        <%= employee.lastName %>
+                                                    </td>
+                                                    <td>
+                                                        <%= employee.age %>
+                                                    </td>
+                                                    <td>
+                                                        <%= employee.education %>
+                                                    </td>
+                                                    <td>
+                                                        <%= employee.position %>
+                                                    </td>
+                                                    <td>
+                                                        <%= employee.salary %>
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="/stores/<%= data.id %>/employees/<%= employee.id %>/edit"
+                                                            class="btn btn-warning">Edit</a>
+                                                        <a href="/stores/<%= data.id %>/employees/<%= employee.id %>/delete"
+                                                            class="btn btn-danger">Delete</a>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                    <%} %>
+                        </div>
+                    </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
