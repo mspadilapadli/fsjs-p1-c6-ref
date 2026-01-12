@@ -12,15 +12,12 @@
 <body>
     <%- include('_navbar') %>
         <div class="container">
-
-
             <h5>
                 <%= isEdit ? "Update" : "Add" %> Employee
             </h5>
-
-
             <form action="<%= action %>" method="post">
                 <div class="row">
+
                     <div class="col mb-3">
                         <label class="form-label">First Name
                             <% if (errors.firstName) { %>

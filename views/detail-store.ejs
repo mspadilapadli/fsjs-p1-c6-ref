@@ -12,6 +12,7 @@
 <body>
     <%- include('_navbar') %>
         <div class="container">
+            <h5>Beta<%= data.category %> CMS</h5>
             <% if (success) { %>
                 <div class="alert alert-<%= display%>">
                     <strong>
@@ -19,8 +20,6 @@
                     </strong>
                 </div>
                 <% } %>
-                    <h5>Beta<%= data.category %> CMS</h5>
-
                     <h3 class="d-flex justify-content-center">
                         <%= data.name %>
                     </h3>
@@ -36,7 +35,6 @@
                             <h4 class="d-flex justify-content-center">List Employee</h4>
                             <h6 class="d-flex justify-content-center">Employees Fee : <%= typeof totalFee !=='undefined'
                                     ? totalFee : '-' %>
-
                             </h6>
                         </div>
                         <div>
@@ -44,9 +42,7 @@
                                 <p class="d-flex justify-content-center fs-4">
                                     "Employee is Empty"
                                 </p>
-
                                 <% } else { %>
-
                                     <table class="table">
                                         <thead>
                                             <tr class="table-info">
@@ -80,7 +76,6 @@
                                                     <td>
                                                         <%= employee.salary %>
                                                     </td>
-
                                                     <td>
                                                         <a href="/stores/<%= data.id %>/employees/<%= employee.id %>/edit"
                                                             class="btn btn-warning">Edit</a>

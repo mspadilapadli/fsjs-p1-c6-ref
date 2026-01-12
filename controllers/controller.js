@@ -65,7 +65,6 @@ class Controller {
     }
     static async getFormEmployee(req, res) {
         try {
-            // res.send("masuk add employee");
             let { storeId, employeeId } = req.params;
             let dataEmployee = {};
             let action = `/stores/${storeId}/employees/add`;
@@ -121,7 +120,6 @@ class Controller {
                 salary,
             };
             await Employee.create(payload);
-            // redirect ke detail store dengan success message
             res.redirect(
                 `/stores/${storeId}?success=Employee added successfully&display=success`
             );
@@ -159,7 +157,7 @@ class Controller {
                 StoreId: storeId,
                 salary,
             };
-            // bulkUpdate whit where
+            // bulkUpdate with where
             await Employee.update(payload, {
                 where: {
                     id: employeeId,

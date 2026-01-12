@@ -11,9 +11,7 @@
 
 <body>
    <%-include("_navbar")%>
-
       <div class="container">
-
          <div class="my-3">
             <a href="/employees/add" class="btn btn-info">Add Employee</a>
          </div>
@@ -23,15 +21,13 @@
             <a class=" btn btn-outline-secondary" href="/employees?byPosition=Supervisior">Supervisor</a>
             <a class="btn btn-outline-secondary" href="/employees?byPosition=Manager">Manager</a>
             <a class="btn btn-outline-secondary" href="/employees?byPosition=CEO">CEO</a>
-
          </div>
-         <nav class="navbar navbar-light bg-light">
+         <!-- <nav class="navbar navbar-light bg-light">
             <form action="/" method="get" class="form-inline d-flex">
                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
                <button class=" btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
             </form>
-         </nav>
-
+         </nav> -->
 
          <table class="table  table-striped" style="table-layout: fixed; width: 100%;">
             <thead>
@@ -44,7 +40,6 @@
                </tr>
             </thead>
             <tbody>
-
                <% data.forEach((employee)=> {%>
 
                   <tr>
@@ -66,7 +61,6 @@
                      <td>
                         <a href="/stores/<%= employee.StoreId %>/employees/<%= employee.id %>/edit"
                            class="btn btn-outline-dark">Edit</a>
-
                      </td>
                   </tr>
                   <% }); %>
