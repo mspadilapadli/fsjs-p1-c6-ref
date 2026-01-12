@@ -1,5 +1,6 @@
 const { where } = require("sequelize");
 const { Store, Employee } = require("../models");
+const helper = require("../helper");
 
 class Controller {
     static async readStores(req, res) {
@@ -119,12 +120,8 @@ class Controller {
             await Employee.create(payload);
             res.redirect(`/stores/${storeId}`);
         } catch (error) {
-            if (error.name === "SequelizeValidationError") {
-                const errors = {};
-                error.errors.forEach((el) => {
-                    errors[el.path] = el.message;
-                });
-
+            const errors = helper.formatSequelizeValidationErrors(error);
+            if (errors) {
                 return res.render("form-employee", {
                     dataEmployee: req.body,
                     action: `/stores/${storeId}/employees/add`,
@@ -165,11 +162,8 @@ class Controller {
             });
             res.redirect(`/stores/${storeId}`);
         } catch (error) {
-            if (error.name === "SequelizeValidationError") {
-                const errors = {};
-                error.errors.forEach((el) => {
-                    errors[el.path] = el.message;
-                });
+            const errors = helper.formatSequelizeValidationErrors(error);
+            if (errors) {
                 return res.render("form-employee", {
                     dataEmployee: req.body,
                     action: `/stores/${storeId}/employees/${employeeId}/edit`,
