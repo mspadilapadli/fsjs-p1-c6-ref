@@ -56,8 +56,7 @@ class Controller {
                 hasEmployees: employees.length > 0,
             });
         } catch (error) {
-            console.log(error);
-            // res.send(error);
+            res.send(error);
         }
     }
     static async getFormEmployee(req, res) {
@@ -89,6 +88,7 @@ class Controller {
                 dataEmployee,
                 action,
                 isEdit,
+                errors: {},
             });
         } catch (error) {
             res.send(error);
@@ -96,8 +96,8 @@ class Controller {
     }
 
     static async postAddEmployee(req, res) {
+        const { storeId } = req.params;
         try {
-            const { storeId } = req.params;
             const {
                 firstName,
                 lastName,
@@ -119,12 +119,25 @@ class Controller {
             await Employee.create(payload);
             res.redirect(`/stores/${storeId}`);
         } catch (error) {
+            if (error.name === "SequelizeValidationError") {
+                const errors = {};
+                error.errors.forEach((el) => {
+                    errors[el.path] = el.message;
+                });
+
+                return res.render("form-employee", {
+                    dataEmployee: req.body,
+                    action: `/stores/${storeId}/employees/add`,
+                    isEdit: false,
+                    errors,
+                });
+            }
             res.send(error);
         }
     }
     static async postEditEmployee(req, res) {
+        let { storeId, employeeId } = req.params;
         try {
-            let { storeId, employeeId } = req.params;
             const {
                 firstName,
                 lastName,

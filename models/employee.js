@@ -92,9 +92,7 @@ module.exports = (sequelize, DataTypes) => {
                     //*validate minWorkingAge with getter age
                     minWorkingAge() {
                         if (this.age < 17) {
-                            throw new Errorr(
-                                `Minimal harus berusia 17 tahun untuk dapat bekerja`
-                            );
+                            throw new Error(`Minimum age is 17 years old`);
                         }
                     },
 
@@ -110,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
                     //         today.getDate()
                     //     );
                     //     if (birth > minimalDate) {
-                    //         throw new Errorr(
+                    //         throw new Error(
                     //             `Minimal harus berusia 17 tahun untuk dapat bekerja`
                     //         );
                     //     }
@@ -134,17 +132,17 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
                 validate: {
                     notNull: {
-                        msg: `First Name is required`,
+                        msg: `Position is required`,
                     },
                     notEmpty: {
-                        msg: `First Name cannot be empty`,
+                        msg: `Position cannot be empty`,
                     },
                     defaultPositionForS2S3(value) {
                         const allowPositions = ["Manager", "CEO"];
 
                         if (
                             ["S2", "S3"].includes(this.education) &&
-                            !allowPositions.include(value)
+                            !allowPositions.includes(value)
                         ) {
                             throw new Error(
                                 `Jenjang pendidikan S2 atau S3 hanya boleh menepati posisi Manager atau CEO`
@@ -176,9 +174,9 @@ module.exports = (sequelize, DataTypes) => {
                     notNull: {
                         msg: `Salary is required`,
                     },
-                    // notEmpty: {
-                    //     msg: `Salary cannot be empty`,
-                    // },
+                    notEmpty: {
+                        msg: `Salary cannot be empty`,
+                    },
                 },
             },
         },
