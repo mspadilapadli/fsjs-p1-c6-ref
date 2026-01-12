@@ -165,6 +165,18 @@ class Controller {
             });
             res.redirect(`/stores/${storeId}`);
         } catch (error) {
+            if (error.name === "SequelizeValidationError") {
+                const errors = {};
+                error.errors.forEach((el) => {
+                    errors[el.path] = el.message;
+                });
+                return res.render("form-employee", {
+                    dataEmployee: req.body,
+                    action: `/stores/${storeId}/employees/${employeeId}/edit`,
+                    isEdit: true,
+                    errors,
+                });
+            }
             res.send(error);
         }
     }
