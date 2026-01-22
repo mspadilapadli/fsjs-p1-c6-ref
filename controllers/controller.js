@@ -44,7 +44,7 @@ class Controller {
     }
     static async storeDetail(req, res) {
         try {
-            const { success, display } = req.query;
+            const { status } = req.query;
             const { storeId } = req.params;
             const data = await Store.findByPk(storeId, {
                 include: Employee,
@@ -56,8 +56,7 @@ class Controller {
                 data,
                 totalFee,
                 hasEmployees: employees.length > 0,
-                success,
-                display,
+                status,
             });
         } catch (error) {
             res.send(error);
@@ -120,9 +119,7 @@ class Controller {
                 salary,
             };
             await Employee.create(payload);
-            res.redirect(
-                `/stores/${storeId}?success=Employee added successfully&display=success`
-            );
+            res.redirect(`/stores/${storeId}?status=added`);
         } catch (error) {
             const errors = helper.formatSequelizeValidationErrors(error);
             if (errors) {
@@ -164,9 +161,7 @@ class Controller {
                 },
                 validate: true,
             });
-            res.redirect(
-                `/stores/${storeId}?success=Employee updated successfully&display=info`
-            );
+            res.redirect(`/stores/${storeId}?status=updated`);
         } catch (error) {
             const errors = helper.formatSequelizeValidationErrors(error);
             if (errors) {
@@ -188,9 +183,7 @@ class Controller {
             const employeeName = `${delEmployee.firstName} ${delEmployee.lastName}`;
 
             await delEmployee.destroy();
-            res.redirect(
-                `/stores/${storeId}?success=Employee ${employeeName} deleted!&display=warning`
-            );
+            res.redirect(`/stores/${storeId}?status=deleted`);
         } catch (error) {
             res.send(error);
         }
